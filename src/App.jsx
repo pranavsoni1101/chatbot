@@ -4,7 +4,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import { Box, Button, Container, Heading, Text } from '@chakra-ui/react';
 
 const App = () => {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('Speak to understand the functionalities');
 
   const commands = [
     {
@@ -22,11 +22,9 @@ const App = () => {
       },
     },
     {
-      command: 'write an email to :recipient with subject :subject and body :body',
+      command: 'write an email to * with subject * and body *',
       callback: (recipient, subject, body) => {
         setMessage(`Writing an email to ${recipient} with subject "${subject}" and body "${body}"`);
-        // You can implement the logic to open an email composition form here
-        // For simplicity, we are just logging the details in this example
         console.log(`Recipient: ${recipient}, Subject: ${subject}, Body: ${body}`);
       },
     },
@@ -48,6 +46,11 @@ const App = () => {
   const handleStopListening = () => {
     SpeechRecognition.stopListening();
   };
+
+  const handleResetTranscript = () => {
+    resetTranscript();
+    setMessage("Speak to understand the functionalities")
+  }
 
   return (
     <>
@@ -100,6 +103,16 @@ const App = () => {
               w = "sm"
             >
               Stop Listening
+            </Button>
+            <Button
+              // m = "0.5em auto"
+              mt = "1em"
+              ml = "1em"
+              colorScheme='yellow'
+              onClick={resetTranscript}
+              w = "sm"
+            >
+              Reset Transcript
             </Button>
           </Box>
         </Box>
